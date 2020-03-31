@@ -1,0 +1,88 @@
+/* Q1: SELECT DISTINCT `name`
+FROM `Facilities`
+WHERE `membercost` >0  */
+
+/* Q2: SELECT COUNT( * )
+FROM `Facilities`
+WHERE `membercost` =0 */
+
+/* Q3: SELECT `facid` , `name` , `membercost` , `monthlymaintenance`
+FROM `Facilities`
+WHERE `membercost` >0
+HAVING `membercost` / `monthlymaintenance` < 0.2 */
+
+/* Q4: SELECT *
+FROM `Facilities`
+WHERE `facid`
+IN ( 1, 5 ) */
+
+/* Q5: SELECT `name` ,
+CASE WHEN `monthlymaintenance` >100
+THEN 'expensive'
+ELSE 'cheap'
+END AS `Type` , `monthlymaintenance`
+FROM `Facilities` */
+
+/* Q6: SELECT `firstname` , `surname`
+FROM `Members`
+WHERE `joindate` = (
+SELECT MAX( `joindate` )
+FROM `Members` ) */
+
+/* Q7: SELECT CONCAT( `Members`.`surname` , ', ', `Members`.`firstname` ) AS `name`
+FROM `Bookings`
+LEFT JOIN `Members` ON `Bookings`.`memid` = `Members`.`memid`
+WHERE `facid`
+IN ( 0, 1 )
+GROUP BY 1
+ORDER BY `name` DESC */
+
+/*Why isn't booking_id in requested form) 
+/* Q8: SELECT 
+CONCAT(`Members`.`surname`,',',`Members`.`firstname`) AS `member_name`,`Facilities`.`name`, `Bookings`.`bookid`,
+SUM(CASE WHEN `Bookings`.`memid` = 0 THEN  `Bookings`.`slots`*`Facilities`.`guestcost` ELSE `Bookings`.`slots`*`Facilities`.`membercost` END)  AS  `cost` FROM `Bookings`
+LEFT JOIN `Facilities`
+ON `Bookings`.`facid` = `Facilities`.`facid`
+LEFT JOIN `Members`
+ON `Bookings`.`memid` = `Members`.`memid`
+WHERE CAST(`Bookings`.`starttime` AS date) = '2012-09-14'
+GROUP BY 1,2,3
+HAVING `cost` > 30
+ORDER BY `cost` DESC *\
+
+
+/* Q9: SELECT
+(SELECT CONCAT(`surname`,',', `firstname`) FROM `Members` WHERE `Members`.`memid` = `Bookings`.`memid`)  as `member_name`,
+(SELECT `name`  FROM `Facilities` WHERE `Facilities`.`facid` = `Bookings`.`facid`) as `name`,`bookid`,
+sum(CASE WHEN `memid` = 0 THEN (SELECT `guestcost`  FROM `Facilities` WHERE `Facilities`.`facid` = `Bookings`.`facid`)*`slots` ELSE (SELECT `membercost`  FROM `Facilities` WHERE `Facilities`.`facid` = `Bookings`.`facid`)*`slots` END) as `cost`
+FROM `Bookings` 
+WHERE CAST(`starttime` AS date) = '2012-09-14'
+GROUP BY 1,2,3
+Having `cost` > 30 
+ORDER BY `cost` DESC*\
+
+\* Q9.2: SELECT 
+CONCAT(`Members`.`surname`,',',`Members`.`firstname`) AS `member_name`,`Facilities`.`name`, `Bookings`.`bookid`,
+SUM(CASE WHEN `Bookings`.`memid` = 0 THEN  `Bookings`.`slots`*`Facilities`.`guestcost` ELSE `Bookings`.`slots`*`Facilities`.`membercost` END)  AS  `cost` FROM `Bookings`
+LEFT JOIN `Facilities`
+ON `Bookings`.`facid` = `Facilities`.`facid`
+LEFT JOIN `Members`
+ON `Bookings`.`memid` = `Members`.`memid`
+WHERE CAST(`Bookings`.`starttime` AS date) = '2012-09-14'
+GROUP BY 1,2,3
+HAVING `cost` > 30
+ORDER BY `cost` DESC *\
+
+
+\* Q10: 
+SELECT  `f`.`name`,SUM(CASE WHEN `Bookings`.`memid` = 0 THEN `f`.`guestcost`*`slots` ELSE `f`.`membercost`*`slots` END) as `revenue`
+FROM (SELECT `guestcost`,`membercost`,`facid`,`name`  FROM `Facilities`) as `f`,`Bookings`
+WHERE `Bookings`.`facid` = `f`.`facid`
+GROUP BY 1
+HAVING `revenue` <= 1000
+ORDER BY `revenue` DESC
+*\
+
+
+
+
