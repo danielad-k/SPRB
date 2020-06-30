@@ -1,0 +1,13 @@
+
+<b> Overview </b> </br>
+This project is about predicting whether or not a Kickstarter project will be successful or not. 
+
+<b> Description </b> </br>
+  <b> Exploratory Analysis, Statistical Analysis, and Modeling Jupyter Notebooks </b> </br>
+1.1_data_wrangling_and_storytelling: exploratory data analysis and storytelling for the Kickstarter data </br>
+1.2 statistical_modelling: statistical tests such as bayensian statistics, ANOVA and post-hoc analysis  </br>
+1.3 Modeling: Applying variety of predictive models such as XGB, Random Forest, and Stacking to determine  </br> 
+
+  <b> Presentation </b> </br>
+  Kickstarter Final Project: The Final project summarizing all of the results
+  kickstarter prediction project.pptx: A deck summarizing all of the results and next steps for the project
