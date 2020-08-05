@@ -1,7 +1,7 @@
 
 <b> Overview of Capstone 2</b> </br>
 
-This projet's purpose is to predict TripTypes for Walmart and understand which factors predict different Trip Types 
+This projet's purpose is to predict Walmart TripTypes and understand which factors influence different Trip Types 
 
 <b> Description </b> </br>
 
